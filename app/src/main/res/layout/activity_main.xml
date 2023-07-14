@@ -47,15 +47,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Enter your message" />
+                android:hint="@string/enter_your_message" />
 
-            <Button
+            <ImageButton
+                android:backgroundTint="@android:color/transparent"
                 android:id="@+id/buttonSend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:background="@drawable/button_bg"
-                android:text="Send"
+                android:src="@drawable/baseline_send_24"
                 android:textColor="@color/white" />
         </LinearLayout>
 
