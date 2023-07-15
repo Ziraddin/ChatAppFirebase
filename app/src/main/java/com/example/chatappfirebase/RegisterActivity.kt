@@ -13,7 +13,7 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding
-    private lateinit var auth: FirebaseAuth
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -24,9 +24,9 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun register(view: View) {
-        val email = binding.editTextEmailAddress.text.toString()
-        val password = binding.editTextPassword.toString()
-        val newDisplayName = binding.editTextDisplayName.text.toString()
+        val email = binding.editTextEmailAddress.text.toString().trim()
+        val password = binding.editTextPassword.editText.toString().trim()
+        val newDisplayName = binding.editTextDisplayName.text.toString().trim()
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener() { task ->
             val user = auth.currentUser

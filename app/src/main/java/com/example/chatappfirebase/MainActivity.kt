@@ -1,6 +1,9 @@
 package com.example.chatappfirebase
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,6 +62,25 @@ class MainActivity : AppCompatActivity() {
             val sender = auth.currentUser?.displayName.toString()
             databaseRef.child("Messages").push().setValue(MessageDTO(sender, message))
             editTextMessage.text.clear()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.logout -> {
+                auth.signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

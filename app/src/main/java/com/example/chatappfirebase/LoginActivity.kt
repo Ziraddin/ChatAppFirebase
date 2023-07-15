@@ -2,6 +2,7 @@ package com.example.chatappfirebase
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
-    private lateinit var auth: FirebaseAuth
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -20,18 +21,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        super.onStart()
         if (auth.currentUser != null) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
+        super.onStart()
     }
 
     fun login(view: View) {
-        val email = binding.editTextEmailAddress.text.toString()
-        val password = binding.editTextPassword.toString()
-
+        val email = binding.editTextEmailAddress.text.toString().trim()
+        val password = binding.editTextPassword.editText?.text.toString().trim()
+        Log.d("password", password)
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 val intent = Intent(this, MainActivity::class.java)
